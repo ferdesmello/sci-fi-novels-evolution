@@ -4,12 +4,24 @@ This script cleans the data if new data have been included tardily.
 Modules:
     - pandas
     - winsound (only for Windows)
+    - pathlib
+    - sys
 """
 
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 import pandas as pd
 import winsound
+
+from pathlib import Path
+import sys
+
+#----------------------------------------------------------------------------------
+# Make relative path imports work
+# Make project root importable
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+# Import paths
+from paths import FILTERED, ANSWERS
 
 #----------------------------------------------------------------------------------
 def main():
@@ -20,10 +32,10 @@ def main():
     # Read the files
     print("Reading the data...")
 
-    df_TOP = pd.read_csv('./data/filtered/sci-fi_novels_TOP.csv', sep = ';', encoding="utf-8-sig")
-    df_TOP_Wiki = pd.read_csv('./data/filtered/sci-fi_novels_TOP_Wiki.csv', sep = ';', encoding="utf-8-sig")
-    df_AI_ANSWERS = pd.read_csv('./data/answers/sci-fi_novels_AI_ANSWERS.csv', sep = ';', encoding="utf-8-sig")
-    df_AI_GENDER = pd.read_csv('./data/answers/sci-fi_novels_AI_ANSWERS_GENDER.csv', sep = ';', encoding="utf-8-sig")
+    df_TOP = pd.read_csv(FILTERED / 'sci-fi_novels_TOP.csv', sep = ';', encoding="utf-8-sig")
+    df_TOP_Wiki = pd.read_csv(FILTERED / 'sci-fi_novels_TOP_Wiki.csv', sep = ';', encoding="utf-8-sig")
+    df_AI_ANSWERS = pd.read_csv(ANSWERS / 'sci-fi_novels_AI_ANSWERS.csv', sep = ';', encoding="utf-8-sig")
+    df_AI_GENDER = pd.read_csv(ANSWERS / 'sci-fi_novels_AI_ANSWERS_GENDER.csv', sep = ';', encoding="utf-8-sig")
 
     #----------------------------------------------------------------------------------
     # Clean the files, so they have only sci-fi_novels_TOP.csv novels.
@@ -179,9 +191,9 @@ def main():
     # Save the cleaned files
     print("Saving the files...")
 
-    outoput_file_TOP_Wiki = './data/filtered/sci-fi_novels_TOP_Wiki.csv'
-    outoput_file_ANSWERS = './data/answers/sci-fi_novels_AI_ANSWERS.csv'
-    output_file_gender = './data/answers/sci-fi_novels_AI_ANSWERS_GENDER.csv'
+    outoput_file_TOP_Wiki = FILTERED / 'sci-fi_novels_TOP_Wiki.csv'
+    outoput_file_ANSWERS = ANSWERS / 'sci-fi_novels_AI_ANSWERS.csv'
+    output_file_gender = ANSWERS / 'sci-fi_novels_AI_ANSWERS_GENDER.csv'
 
     df_cleaned_TOP_Wiki.to_csv(outoput_file_TOP_Wiki, index=False, sep=';', encoding='utf-8-sig')
     df_cleaned_ANSWERS.to_csv(outoput_file_ANSWERS, index=False, sep=';', encoding='utf-8-sig')

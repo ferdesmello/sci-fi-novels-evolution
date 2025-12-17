@@ -9,6 +9,8 @@ Modules:
     - dotenv
     - datetime
     - winsound (only for Windows)
+    - pathlib
+    - sys
 """
 
 #-------------------------------------------------------------------------------------------
@@ -20,9 +22,19 @@ from dotenv import load_dotenv
 from datetime import datetime
 import winsound
 
+from pathlib import Path
+import sys
+
+#----------------------------------------------------------------------------------
+# Make relative path imports work
+# Make project root importable
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+# Import paths
+from paths import FILTERED, ANSWERS, KEYS
+
 #----------------------------------------------------------------------------------
 # Load environment variables from the .env file
-load_dotenv(dotenv_path='../KEYs/My_OPENAI_API_Key.env')
+load_dotenv(dotenv_path=KEYS / 'My_OPENAI_API_Key.env')
 
 # Get the API key from the environment variable
 openai_api_key = os.environ.get("OPENAI_API_KEY")
@@ -33,7 +45,6 @@ if openai_api_key:
     print("OpenAI API key loaded successfully.")
 else:
     print("Error: OPENAI_API_KEY not found in the environment variables. Make sure your .env file is correctly configured.")
-
 
 #----------------------------------------------------------------------------------
 def analyze_author(author: str) -> str:
@@ -93,10 +104,10 @@ def main():
     """
     
     # Name of the input file
-    input_file = './data/filtered/sci-fi_novels_TOP.csv'
+    input_file = FILTERED / 'sci-fi_novels_TOP.csv'
 
     # Name of the output file
-    output_file = './data/answers/sci-fi_novels_AI_ANSWERS_GENDER.csv'
+    output_file = ANSWERS / 'sci-fi_novels_AI_ANSWERS_GENDER.csv'
 
     #----------------------------------------------------------------------------------
     # Load novel data to send to the AI

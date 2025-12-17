@@ -9,6 +9,8 @@ Modules:
     - numpy
     - plotly
     - typing
+    - pathlib
+    - sys
 """
 
 #------------------------------------------------------------------------------------------------------------
@@ -24,14 +26,24 @@ import numpy as np
 import plotly.express as px
 from typing import List
 
+from pathlib import Path
+import sys
+
+#----------------------------------------------------------------------------------
+# Make relative path imports work
+# Make project root importable
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+# Import paths
+from paths import FILTERED, ANSWERS, FIGURES, VARIABILITY_IN_ANSWERS
+
 #---------------------------------------------------------------------------------------------------
 print("Reading and processing tha data...")
 
 # Read the data
-df_filtered = pd.read_csv("./data/filtered/sci-fi_novels_FILTERED.csv", sep=";", encoding="utf-8-sig")
-df_top = pd.read_csv("./data/filtered/sci-fi_novels_TOP_Wiki.csv", sep=";", encoding="utf-8-sig")
-df_top_AI = pd.read_csv("./data/answers/sci-fi_novels_AI_ANSWERS.csv", sep=";", encoding="utf-8-sig")
-df_top_AI_gender = pd.read_csv("./data/answers/sci-fi_novels_AI_ANSWERS_GENDER.csv", sep=";", encoding="utf-8-sig")
+df_filtered = pd.read_csv(FILTERED / "sci-fi_novels_FILTERED.csv", sep=";", encoding="utf-8-sig")
+df_top = pd.read_csv(FILTERED / "sci-fi_novels_TOP_Wiki.csv", sep=";", encoding="utf-8-sig")
+df_top_AI = pd.read_csv(ANSWERS / "sci-fi_novels_AI_ANSWERS.csv", sep=";", encoding="utf-8-sig")
+df_top_AI_gender = pd.read_csv(ANSWERS / "sci-fi_novels_AI_ANSWERS_GENDER.csv", sep=";", encoding="utf-8-sig")
 
 #print(df_top_AI.info())
 #print(df.head())
@@ -119,26 +131,26 @@ print("\ngenders", df_top_AI_new["genders"].unique())
 
 # File names in the normally ordered alternatives
 file_names = [
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_01.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_02.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_03.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_04.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_05.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_06.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_07.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_08.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_09.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_10.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_11.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_12.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_13.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_14.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_15.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_16.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_17.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_18.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_19.csv",
-    "./data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_20.csv"
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_01.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_02.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_03.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_04.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_05.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_06.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_07.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_08.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_09.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_10.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_11.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_12.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_13.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_14.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_15.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_16.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_17.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_18.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_19.csv",
+    VARIABILITY_IN_ANSWERS / "sci-fi_novels_AI_ANSWERS_TEST_20.csv"
     ]
 
 column_order = [
@@ -406,10 +418,10 @@ def figure_maker (number: int,
         print(f"There is NO significant correlation between {column_X} and {column_Y}.")
 
     # Save image-------------------------------------------
-    plt.savefig(f"./figures/00 {printing_name}.png", bbox_inches = 'tight')
-    #plt.savefig("./figures/00 {printing_name}.eps", transparent = True, bbox_inches = 'tight')
+    plt.savefig(FIGURES / "00 {printing_name}.png", bbox_inches = 'tight')
+    #plt.savefig(FIGURES / "00 {printing_name}.eps", transparent = True, bbox_inches = 'tight')
     # Transparence will be lost in .eps, save in .svg for transparences
-    #plt.savefig("./figures/00 {printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+    #plt.savefig(FIGURES / "00 {printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
     plt.close(figure)
 
 #---------------------------------------------------------------------------------------------------
@@ -531,11 +543,11 @@ for tick in ax1.get_xticklabels():
 
 # Save image-------------------------------------------
 if var_flag == 1:
-    plt.savefig("./figures/00 variation difference.png", bbox_inches = 'tight')
+    plt.savefig(FIGURES / "00 variation difference.png", bbox_inches = 'tight')
 elif var_flag == 2:
-    plt.savefig("./figures/00 variation mode.png", bbox_inches = 'tight')
+    plt.savefig(FIGURES / "00 variation mode.png", bbox_inches = 'tight')
 elif var_flag == 3:
-    plt.savefig("./figures/00 variation entropy.png", bbox_inches = 'tight')
+    plt.savefig(FIGURES / "00 variation entropy.png", bbox_inches = 'tight')
 
 plt.close(figure_1)
 
@@ -693,10 +705,10 @@ for b in boundaries:
         )
 
 # Save image-------------------------------------------
-plt.savefig("./figures/00 author and protagonist gender.png", bbox_inches = 'tight')
-#plt.savefig("./figures/00 author and protagonist gender.eps", transparent = True, bbox_inches = 'tight')
+plt.savefig(FIGURES / "00 author and protagonist gender.png", bbox_inches = 'tight')
+#plt.savefig(FIGURES / "00 author and protagonist gender.eps", transparent = True, bbox_inches = 'tight')
 # Transparence will be lost in .eps, save in .svg for transparences
-#plt.savefig("./figures/00 author and protagonist gender.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+#plt.savefig(FIGURES / "00 author and protagonist gender.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
 plt.close(figure_2)
 
 #---------------------------------------------------------------------------------------------------
@@ -805,7 +817,7 @@ figure_classes_all.update_layout(
 )
 
 # Save image-------------------------------------------
-figure_classes_all.write_image("./figures/00 protagonist classes (all decades).png", scale=3)
+figure_classes_all.write_image(FIGURES / "00 protagonist classes (all decades).png", scale=3)
 
 #---------------------------------------------------------------------------------------------------
 # Figure 4 - protagonist classes
@@ -867,7 +879,7 @@ figure_classes_2000.update_layout(
 )
 
 # Save image-------------------------------------------
-figure_classes_2000.write_image("./figures/00 protagonist classes (2000s-2020s).png", scale=3)
+figure_classes_2000.write_image(FIGURES / "00 protagonist classes (2000s-2020s).png", scale=3)
 
 #---------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
@@ -1080,10 +1092,10 @@ for i in range(mat_df.shape[0]):
             ax.text(j, i, f"{data[i,j]:.2f}", ha='center', va='center', fontsize=6)
 
 plt.tight_layout()
-plt.savefig("./figures/00 cramers v heatmap questions.png", bbox_inches = 'tight', dpi=300)
-#plt.savefig("./figures/00 cramers v heatmap questions.eps", transparent = True, bbox_inches = 'tight')
+plt.savefig(FIGURES / "00 cramers v heatmap questions.png", bbox_inches = 'tight', dpi=300)
+#plt.savefig(FIGURES / "00 cramers v heatmap questions.eps", transparent = True, bbox_inches = 'tight')
 # Transparence will be lost in .eps, save in .svg for transparences
-#plt.savefig("./figures/00 cramers v heatmap questions.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+#plt.savefig(FIGURES / "00 cramers v heatmap questions.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
 
 #---------------------------------------------------------------------------------------------------
 # Figure 9 - Alternatives Cramer's V heatmap big
@@ -1134,10 +1146,10 @@ ax.set_xticklabels(mat_df.columns, rotation=90, fontsize=6)
 ax.set_yticklabels(mat_df.index, fontsize=6)
 
 plt.tight_layout()
-plt.savefig("./figures/00 cramers v heatmap alternatives.png", bbox_inches = 'tight', dpi=300)
-#plt.savefig("./figures/00 cramers v heatmap alternatives.eps", transparent = True, bbox_inches = 'tight')
+plt.savefig(FIGURES / "00 cramers v heatmap alternatives.png", bbox_inches = 'tight', dpi=300)
+#plt.savefig(FIGURES / "00 cramers v heatmap alternatives.eps", transparent = True, bbox_inches = 'tight')
 # Transparence will be lost in .eps, save in .svg for transparences
-#plt.savefig("./figures/00 cramers v heatmap alternatives.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+#plt.savefig(FIGURES / "00 cramers v heatmap alternatives.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
 
 #---------------------------------------------------------------------------------------------------
 print("All done.")

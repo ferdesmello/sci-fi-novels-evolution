@@ -7,6 +7,8 @@ Modules:
     - seaborn
     - numpy
     - typing
+    - pathlib
+    - sys
 """
 
 #------------------------------------------------------------------------------------------------------------
@@ -18,14 +20,24 @@ import seaborn as sns
 import numpy as np
 from typing import List
 
+from pathlib import Path
+import sys
+
+#----------------------------------------------------------------------------------
+# Make relative path imports work
+# Make project root importable
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+# Import paths
+from paths import FILTERED, ANSWERS, FIGURES
+
 #---------------------------------------------------------------------------------------------------
 print("Reading and processing tha data...")
 
 # Read the data
-df_filtered = pd.read_csv("./data/filtered/sci-fi_novels_FILTERED.csv", sep=";", encoding="utf-8-sig")
-df_top = pd.read_csv("./data/filtered/sci-fi_novels_TOP_Wiki.csv", sep=";", encoding="utf-8-sig")
-df_top_AI = pd.read_csv("./data/answers/sci-fi_novels_AI_ANSWERS.csv", sep=";", encoding="utf-8-sig")
-df_top_AI_gender = pd.read_csv("./data/answers/sci-fi_novels_AI_ANSWERS_GENDER.csv", sep=";", encoding="utf-8-sig")
+df_filtered = pd.read_csv(FILTERED / "sci-fi_novels_FILTERED.csv", sep=";", encoding="utf-8-sig")
+df_top = pd.read_csv(FILTERED / "sci-fi_novels_TOP_Wiki.csv", sep=";", encoding="utf-8-sig")
+df_top_AI = pd.read_csv(ANSWERS / "sci-fi_novels_AI_ANSWERS.csv", sep=";", encoding="utf-8-sig")
+df_top_AI_gender = pd.read_csv(ANSWERS / "sci-fi_novels_AI_ANSWERS_GENDER.csv", sep=";", encoding="utf-8-sig")
 
 #---------------------------------------------------------------------------------------------------
 # Exclude novels of before 1860 (allmost none)
@@ -254,10 +266,10 @@ all_decades = np.arange(df_all['decade'].min(), df_all['decade'].max() + 10, 10)
 plt.xticks(all_decades, rotation=90)
 
 # Save image-------------------------------------------
-plt.savefig("./figures/00 Quantities.png", bbox_inches = 'tight')
-#plt.savefig("./figures/00 Quantities.eps", transparent = True, bbox_inches = 'tight')
+plt.savefig(FIGURES / "00 Quantities.png", bbox_inches = 'tight')
+#plt.savefig(FIGURES / "00 Quantities.eps", transparent = True, bbox_inches = 'tight')
 # Transparence will be lost in .eps, save in .svg for transparences
-#plt.savefig("./figures/00 Quantities.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+#plt.savefig(FIGURES / "00 Quantities.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
 plt.close(figure_1)
 
 #---------------------------------------------------------------------------------------------------
@@ -377,10 +389,10 @@ ax2.spines['left'].set_visible(False)
 ax2.spines['bottom'].set_color(custom_dark_gray)
 
 # Save image-------------------------------------------
-plt.savefig("./figures/00 Rates and Ratings.png", bbox_inches = 'tight')
-#plt.savefig("./figures/00 Rates and Ratings.eps", transparent = True, bbox_inches = 'tight')
+plt.savefig(FIGURES / "00 Rates and Ratings.png", bbox_inches = 'tight')
+#plt.savefig(FIGURES / "00 Rates and Ratings.eps", transparent = True, bbox_inches = 'tight')
 # Transparence will be lost in .eps, save in .svg for transparences
-#plt.savefig("./figures/00 Rates and Ratings.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+#plt.savefig(FIGURES / "00 Rates and Ratings.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
 plt.close(figure_2)
 
 #---------------------------------------------------------------------------------------------------
@@ -500,10 +512,10 @@ def figure_maker (number: int,
     ax1.spines['bottom'].set_color(custom_dark_gray)
 
     # Save image-------------------------------------------
-    plt.savefig(f"./figures/{printing_name}.png", bbox_inches = 'tight')
-    #plt.savefig(f"./figures/{printing_name}.eps", transparent = True, bbox_inches = 'tight')
+    plt.savefig(FIGURES / "{printing_name}.png", bbox_inches = 'tight')
+    #plt.savefig(fFIGURES / "{printing_name}.eps", transparent = True, bbox_inches = 'tight')
     # Transparence will be lost in .eps, save in .svg for transparences
-    #plt.savefig(f"./figures/{printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+    #plt.savefig(fFIGURES / "{printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
     plt.close(figure)
 
 #---------------------------------------------------------------------------------------------------

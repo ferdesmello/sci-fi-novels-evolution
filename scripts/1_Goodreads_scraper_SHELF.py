@@ -15,6 +15,8 @@ Modules:
     - typing
     - datetime
     - winsound (only for Windows)
+    - pathlib
+    - sys
 """
 
 #-------------------------------------------------------------------------------------------
@@ -33,6 +35,16 @@ from typing import List, Dict, Any, Union
 from requests import Session
 from datetime import datetime
 import winsound
+
+from pathlib import Path
+import sys
+
+#----------------------------------------------------------------------------------
+# Make relative path imports work
+# Make project root importable
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+# Import paths
+from paths import BRUTE, SAVED_PAGES
 
 #----------------------------------------------------------------------------------
 # Set up logging
@@ -300,8 +312,8 @@ def main():
     Calls the main scraping function and saves the data.
     """
 
-    folder_path = './data/saved_pages'
-    csv_path = './data/brute/sci-fi_books_SHELF.csv'
+    folder_path = SAVED_PAGES /'saved_pages'
+    csv_path = BRUTE / 'sci-fi_books_SHELF.csv'
 
     # Chose the right columns and their order
     column_order = [

@@ -7,6 +7,8 @@ Modules:
     - datetime
     - re
     - typing
+    - pathlib
+    - sys
 """
 
 #-------------------------------------------------------------------------------------------
@@ -16,18 +18,28 @@ import datetime
 import re
 from typing import Union
 
+from pathlib import Path
+import sys
+
+#----------------------------------------------------------------------------------
+# Make relative path imports work
+# Make project root importable
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+# Import paths
+from paths import BRUTE, FILTERED
+
 #----------------------------------------------------------------------------------
 def main():
     """
     Big main function with all the reduction, cleaning, and transformation of the data.
     """
 
-    df_shelf = pd.read_csv('./data/brute/sci-fi_books_SHELF.csv', sep = ';', encoding='utf-8-sig')
-    df_lists = pd.read_csv('./data/brute/sci-fi_books_LISTS.csv', sep = ';', encoding='utf-8-sig')
+    df_shelf = pd.read_csv(BRUTE / 'sci-fi_books_SHELF.csv', sep = ';', encoding='utf-8-sig')
+    df_lists = pd.read_csv(BRUTE / 'sci-fi_books_LISTS.csv', sep = ';', encoding='utf-8-sig')
 
     frames = [df_shelf, df_lists]
     df = pd.concat(frames, ignore_index=True)
-    df.to_csv('./data/brute/sci-fi_books_BRUTE.csv', index=False, sep=';', encoding='utf-8-sig')
+    df.to_csv(BRUTE / 'sci-fi_books_BRUTE.csv', index=False, sep=';', encoding='utf-8-sig')
 
     print("\nBRUTE Dataframe")
     print(df.info())
@@ -580,8 +592,8 @@ def main():
     print("\nFILTERED Dataframe")
     print(df_filtered.info())
 
-    df_filtered.to_csv('./data/filtered/sci-fi_novels_FILTERED.csv', index=False, sep=';', encoding='utf-8-sig')
-    print(f"\nData saved to ./data/filtered/sci-fi_novels_FILTERED.csv")
+    df_filtered.to_csv(FILTERED / 'sci-fi_novels_FILTERED.csv', index=False, sep=';', encoding='utf-8-sig')
+    print(f"\nData saved to FILTERED / sci-fi_novels_FILTERED.csv")
 
 #----------------------------------------------------------------------------------
 # Execution

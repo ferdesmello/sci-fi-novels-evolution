@@ -16,6 +16,8 @@ Modules:
     - pathlib
     - time
     - winsound (only for Windows)
+    - pathlib
+    - sys
 """
 
 #----------------------------------------------------------------------------------
@@ -38,6 +40,16 @@ from pathlib import Path
 import time
 from datetime import datetime
 import winsound
+
+from pathlib import Path
+import sys
+
+#----------------------------------------------------------------------------------
+# Make relative path imports work
+# Make project root importable
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+# Import paths
+from paths import FILTERED
 
 #----------------------------------------------------------------------------------
 def clean_text(text: str) -> str:
@@ -366,7 +378,7 @@ def extract_plot(page) -> tuple[str, str]:
     return header, plot_text[:20000] # Truncate if very long
 
 #----------------------------------------------------------------------------------
-LOG_FILE = Path("./data/filtered/wikipedia_failed_novels.csv")
+LOG_FILE = Path(FILTERED / "wikipedia_failed_novels.csv")
 
 def log_failed_novel(result: dict, title: str, author: str, year: int):
 
@@ -495,15 +507,15 @@ def main():
     """
     #------------------------------------------
     # Read the CSV files
-    input_file_TEST = './data/filtered/sci-fi_novels_TEST.csv'
-    #input_file_TEST = './data/filtered/sci-fi_novels_TEST_small.csv'
+    input_file_TEST = FILTERED / 'sci-fi_novels_TEST.csv'
+    #input_file_TEST = FILTERED / 'sci-fi_novels_TEST_small.csv'
 
     df_TEST = pd.read_csv(input_file_TEST, sep = ';', encoding="utf-8-sig")
     df_TEST['plot'] = df_TEST['plot'].astype(object)
     df_TEST['url wikipedia'] = df_TEST['url wikipedia'].astype(object)
 
     #----------------------
-    input_file = './data/filtered/sci-fi_novels_TOP.csv'
+    input_file = FILTERED / 'sci-fi_novels_TOP.csv'
     #input_file = input_file_TEST
 
     df_TOP = pd.read_csv(input_file, sep = ';', encoding="utf-8-sig")
@@ -511,8 +523,8 @@ def main():
     df_TOP['url wikipedia'] = df_TOP['url wikipedia'].astype(object)
 
     #----------------------
-    output_file_TEST = './data/filtered/sci-fi_novels_TEST_Wiki.csv'
-    output_file = './data/filtered/sci-fi_novels_TOP_Wiki.csv'
+    output_file_TEST = FILTERED / 'sci-fi_novels_TEST_Wiki.csv'
+    output_file = FILTERED / 'sci-fi_novels_TOP_Wiki.csv'
 
     #----------------------------------------
     # Load existing progress if the file exists

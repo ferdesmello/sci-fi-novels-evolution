@@ -10,3 +10,5 @@ sci-fi_books_TEST.csv
 sci-fi_books_TEST_Wiki_small.csv
 wikipedia_failed_books.csv
 Science Fiction Books _ Goodreads _ *.html
+__pycache__/
+*.pyc

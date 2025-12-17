@@ -13,6 +13,8 @@ Modules:
     - typing
     - datetime
     - winsound (only for Windows)
+    - pathlib
+    - sys
 """
 
 #-------------------------------------------------------------------------------------------
@@ -34,12 +36,22 @@ from typing import List
 from datetime import datetime
 import winsound
 
+from pathlib import Path
+import sys
+
+#----------------------------------------------------------------------------------
+# Make relative path imports work
+# Make project root importable
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+# Import paths
+from paths import FILTERED, ANSWERS, KEYS, VARIABILITY_IN_ANSWERS
+
 #----------------------------------------------------------------------------------
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Load environment variables from the .env file
-load_dotenv(dotenv_path='../KEYs/My_OPENAI_API_Key.env')
+load_dotenv(dotenv_path=KEYS / 'My_OPENAI_API_Key.env')
 
 # Get the API key from the environment variable
 openai_api_key = os.environ.get("OPENAI_API_KEY")
@@ -835,15 +847,15 @@ def main():
 
     #------------------------------------------
     # Name of the input file
-    #input_file = './data/filtered/sci-fi_novels_TEST_Wiki_small.csv'
-    #input_file = './data/filtered/sci-fi_novels_TEST_Wiki.csv'
-    input_file = './data/filtered/sci-fi_novels_TOP_Wiki.csv'
+    #input_file = FILTERED / 'sci-fi_novels_TEST_Wiki_small.csv'
+    #input_file = FILTERED / 'sci-fi_novels_TEST_Wiki.csv'
+    input_file = FILTERED / 'sci-fi_novels_TOP_Wiki.csv'
 
     # Name of the output file
-    #output_file = './data/answers/sci-fi_novels_AI_ANSWERS_TEST_small.csv'
-    #output_file = './data/answers/sci-fi_novels_AI_ANSWERS_TEST.csv'
-    #output_file = './data/variability_in_answers/sci-fi_novels_AI_ANSWERS_TEST_01.csv'
-    output_file = './data/answers/sci-fi_novels_AI_ANSWERS.csv'
+    #output_file = ANSWERS / 'sci-fi_novels_AI_ANSWERS_TEST_small.csv'
+    #output_file = ANSWERS / 'sci-fi_novels_AI_ANSWERS_TEST.csv'
+    #output_file = VARIABILITY_IN_ANSWERS / 'sci-fi_novels_AI_ANSWERS_TEST_01.csv'
+    output_file = ANSWERS / 'sci-fi_novels_AI_ANSWERS.csv'
 
     #------------------------------------------
     # Load novel data to send to the AI
