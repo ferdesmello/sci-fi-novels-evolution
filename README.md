@@ -24,7 +24,7 @@ But, in short, I scraped data about thousands of sci-fi books from [Goodreads](h
 │   ├── 2_Goodreads_scraper_LISTS.py     # Scrap lists data from Goodreads
 │   ├── 3_Data_reducer_FILTERED.py       # Reduce and filter raw or brute data
 │   ├── 4_Data_reducer_TOP.py            # Select top data for analysis
-│   ├── 5_Data_fixer.py                  # Fix problems with data if ran prior scripts multiple times
+│   ├── 5_Data_fixer.py                  # Fix possible problems with data
 │   ├── 6_Wikipedia_plot_scraper.py      # Scrap plots data from Wikipedia
 │   ├── 7_AI_asker_AI_ANSWERS.py         # Main AI answers
 │   ├── 8_AI_asker_AI_ANSWERS_GENDER.py  # AI answers for author's gender
