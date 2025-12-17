@@ -4,7 +4,7 @@
 
 Inspired by this project ([video](https://www.youtube.com/watch?v=nRQ2vMpw-n8), [page](https://pudding.cool/2024/07/scifi/)) about the evolution in the plot of sci-fi movies and series, and this [comment](https://www.youtube.com/watch?v=nRQ2vMpw-n8&lc=UgyRg89P8kRYQ2SdXrV4AaABAg), I decided to do a similar analysis but for sci-fi _novels_.
 
-You can read in detail all the process of the data and analysis of the results [here](https://fdesmello.wordpress.com/2024/11/21/evolution-of-sci-fi-novels-using-data-and-ai/).
+You can read in detail about the entire process of data analysis and the results [here](https://fdesmello.wordpress.com/2024/11/21/evolution-of-sci-fi-novels-using-data-and-ai/).
 
 But, in short, I scraped data about thousands of sci-fi books from [Goodreads](https://www.goodreads.com/) lists and shelves, and the books' [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) articles, cleaned and reduced the data, selected the top 200 novels per decade (or all the novels if fewer than 200 per decade), and fed that into GPT-5 (in the first tries, I used GPT-4o and Gemini 2.0 Flash) via the OpenAI API, asking about many plot-related things. Then, I aggregated the results in figures to see how things changed over time.
 
@@ -13,6 +13,7 @@ But, in short, I scraped data about thousands of sci-fi books from [Goodreads](h
 <pre>
 ├── data/                                # Data to read, write, and modify
 │   ├── answers/                         # AI answers data
+│   ├── brute/                           # Raw scraped data (this folder will be created when the scraper scripts are run)
 │   ├── filtered/                        # Filtered data to use with the AI
 │   └── variability_in_answers/          # Data for the test in answers variability
 ├── figures/                             # All the figures
@@ -45,7 +46,7 @@ I intended to scrape data directly from the [science fiction book shelf](https:/
 
 **1_Goodreads_scraper_SHELF.py** reads the HTML files in the folder **Data/Saved_pages** and searches for links to the book pages and downloads data for book's _title_, _author_, _year_ published, number of _pages_, if it is part of a _series_, average _rate_, number of _ratings_, _genres_, _synopsis_ and the longest of the first two _reviews_, saving everything in the **sci-fi_books_SHELF.csv** file at the end.
 
-You will have to download and put the HTML files in the Saved_pages folder by hand. I didn't include them here because they are big and use too much space.
+You will need to download and manually place the HTML files in the Saved_pages folder. I didn't include them here because they are big and use too much space.
 
 **2_Goodreads_scraper_LISTS.py** does the same, but from a list of URLs for the initial pages of thematic book lists, saving the progress in a JSON file and everything in the **sci-fi_books_LISTS.csv** file at the end. 
 
