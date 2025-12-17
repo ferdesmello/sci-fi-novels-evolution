@@ -8,6 +8,35 @@ You can read in detail all the process of the data and analysis of the results [
 
 But, in short, I scraped data about thousands of sci-fi books from [Goodreads](https://www.goodreads.com/) lists and shelves, and the books' [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) articles, cleaned and reduced the data, selected the top 200 novels per decade (or all the novels if fewer than 200 per decade), and fed that into GPT-5 (in the first tries, I used GPT-4o and Gemini 2.0 Flash) via the OpenAI API, asking about many plot-related things. Then, I aggregated the results in figures to see how things changed over time.
 
+## Repository structure
+
+<pre>
+├── data/                                # Data to read, write, and modify
+│   ├── answers/                         # AI answers data
+│   ├── filtered/                        # Filtered data to use with the AI
+│   └── variability_in_answers/          # Data for the test in answers variability
+├── figures/                             # All the figures
+├── old_gemini_2.0_flash/                # Old code, answers, and figures using Gemini 2.0 flash
+├── old_gpt-4o/                          # Old code, answers, and figures using GPT-4o
+├── scripts/                             # All Python files to run the analysis
+│   ├── 1_Goodreads_scraper_SHELF.py     # Scrap shelf data from Goodreads
+│   ├── 2_Goodreads_scraper_LISTS.py     # Scrap lists data from Goodreads
+│   ├── 3_Data_reducer_FILTERED.py       # Reduce and filter raw or brute data
+│   ├── 4_Data_reducer_TOP.py            # Select top data for analysis
+│   ├── 5_Data_fixer.py                  # Fix problems with data if ran prior scripts multiple times
+│   ├── 6_Wikipedia_plot_scraper.py      # Scrap plots data from Wikipedia
+│   ├── 7_AI_asker_AI_ANSWERS.py         # Main AI answers
+│   ├── 8_AI_asker_AI_ANSWERS_GENDER.py  # AI answers for author's gender
+│   ├── 9_Figure_maker_novels.py         # Figures for the general features in the novel samples
+│   ├── 9_Figure_maker_questions.py      # Figures for the man AI answers
+│   └── 9_Figure_maker_tests.py          # Figures for some statistical tests and more
+├── .gitattributes
+├── .gitignore
+├── LICENSE
+├── paths.py
+└── README.md
+</pre>
+
 ## What the code does
 
 ### 1. Scraping the data
@@ -56,7 +85,7 @@ Older results and some code for GPT-4o and Gemini 2.0 Flash are stored in separa
 
 ### 4. Plotting the results
 
-Figure making is divided in three parts, one for the sample (**9_Figure_maker_novel.py**), one for the answers to the questions (**9_Figure_maker_questions.py**), and one for some tests (**9_Figure_maker_tests.py**). They all read from **sci-fi_books_AI_ANSWERS.csv**,  **sci-fi_books_AI_ANSWERS_GENDER.csv**, and the files in the **Data/Variability_in_Answers** folder, and make figures from them, saving all of them in the **Figures** folder.
+Figure making is divided into three parts: one for the sample (**9_Figure_maker_novel.py**), one for the answers to the questions (**9_Figure_maker_questions.py**), and one for some tests (**9_Figure_maker_tests.py**). They all read from **sci-fi_books_AI_ANSWERS.csv**,  **sci-fi_books_AI_ANSWERS_GENDER.csv**, and the files in the **Data/Variability_in_Answers** folder, and make figures from them, saving all of them in the **Figures** folder.
 
 ## Example of a figure
 
