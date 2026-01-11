@@ -512,10 +512,10 @@ def figure_maker (number: int,
     ax1.spines['bottom'].set_color(custom_dark_gray)
 
     # Save image-------------------------------------------
-    plt.savefig(FIGURES / "{printing_name}.png", bbox_inches = 'tight')
-    #plt.savefig(fFIGURES / "{printing_name}.eps", transparent = True, bbox_inches = 'tight')
+    plt.savefig(FIGURES / f"{printing_name}.png", bbox_inches = 'tight')
+    #plt.savefig(fFIGURES / f"{printing_name}.eps", transparent = True, bbox_inches = 'tight')
     # Transparence will be lost in .eps, save in .svg for transparences
-    #plt.savefig(fFIGURES / "{printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+    #plt.savefig(fFIGURES / f"{printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
     plt.close(figure)
 
 #---------------------------------------------------------------------------------------------------

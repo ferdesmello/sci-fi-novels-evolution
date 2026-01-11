@@ -311,8 +311,8 @@ def figure_maker (number: int,
         order_Y (List[str]): B order of the categories.
         df_top_B (Dataframe): B Dataframe with all data.
         title (str): Figure title.
-        x_label (str): Figure title.
-        y_label (str): Figure title.
+        x_label (str): Figure x-axis label.
+        y_label (str): Figure y-axis label.
         printing_name (str): Name to be printed as the file name and label.
 
     Returns:
@@ -323,6 +323,7 @@ def figure_maker (number: int,
     # Creates a figure object with size 18x5 inches
     figure = plt.figure(number, figsize = (18, 5))
     gs = figure.add_gridspec(ncols = 2, nrows = 1)
+    figure.suptitle(title, fontsize=16)
 
     # Custom dark gray color
     custom_dark_gray = (0.2, 0.2, 0.2)
@@ -418,10 +419,10 @@ def figure_maker (number: int,
         print(f"There is NO significant correlation between {column_X} and {column_Y}.")
 
     # Save image-------------------------------------------
-    plt.savefig(FIGURES / "00 {printing_name}.png", bbox_inches = 'tight')
-    #plt.savefig(FIGURES / "00 {printing_name}.eps", transparent = True, bbox_inches = 'tight')
+    plt.savefig(FIGURES / f"00 {printing_name}.png", bbox_inches = 'tight')
+    #plt.savefig(FIGURES / f"00 {printing_name}.eps", transparent = True, bbox_inches = 'tight')
     # Transparence will be lost in .eps, save in .svg for transparences
-    #plt.savefig(FIGURES / "00 {printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+    #plt.savefig(FIGURES / f"00 {printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
     plt.close(figure)
 
 #---------------------------------------------------------------------------------------------------
@@ -917,7 +918,7 @@ figure_maker (5,
               order_Y,
               df_top_AI,
               df_top_AI_2000,
-              "title", 
+              "Correlation Between Author and Protagonist Genders", 
               "Protagonist Gender",
               "Author Gender",
               "author and protagonist heatmap")
@@ -952,7 +953,7 @@ figure_maker (5,
               order_Y,
               df_top_AI,
               df_top_AI_2000,
-              "title", 
+              "Correlation Between Social-political Scenario and Post-apocalyptic Setting", 
               "Social-political scenario",
               "Is it post-apocalyptic?",
               "post apocalyptic and social political")
@@ -990,7 +991,7 @@ figure_maker (6,
               order_Y,
               df_top_AI,
               df_top_AI_2000,
-              "title", 
+              "Correlation Between Time and Post-apocalyptic Setting", 
               "When does the story take place?",
               "Is it post-apocalyptic?",
               "post apocalyptic and time")
@@ -1025,7 +1026,7 @@ figure_maker (7,
               order_Y,
               df_top_AI,
               df_top_AI_2000,
-              "title", 
+              "Correlation Between Mood and Post-apocalyptic Setting", 
               "What is the mood of the story?",
               "Is it post-apocalyptic?",
               "post apocalyptic and mood")

@@ -114,7 +114,7 @@ def figure_maker (number: int,
                   printing_name: str) -> None:
     
     """
-    Function to make most of the figures.
+    Function to make most figures.
 
     Args:
         number (int): Number of the figure.
@@ -219,10 +219,10 @@ def figure_maker (number: int,
     ax1.spines['bottom'].set_color(custom_dark_gray)
 
     # Save image-------------------------------------------
-    plt.savefig(FIGURES / "{printing_name}.png", bbox_inches = 'tight')
-    #plt.savefig(FIGURES / "{printing_name}.eps", transparent = True, bbox_inches = 'tight')
+    plt.savefig(FIGURES / f"{printing_name}.png", bbox_inches = 'tight')
+    #plt.savefig(FIGURES / f"{printing_name}.eps", transparent = True, bbox_inches = 'tight')
     # Transparence will be lost in .eps, save in .svg for transparences
-    #plt.savefig(FIGURES / "{printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
+    #plt.savefig(FIGURES / f"{printing_name}.svg", format = 'svg', transparent = True, bbox_inches = 'tight')
     plt.close(figure)
 
 #---------------------------------------------------------------------------------------------------
