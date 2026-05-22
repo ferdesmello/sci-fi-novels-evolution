@@ -17,8 +17,9 @@ But, in short, I scraped data about thousands of sci-fi books from [Goodreads](h
 │   ├── filtered/                        # Filtered data to use with the AI
 │   └── variability_in_answers/          # Data for the test in answers variability
 ├── figures/                             # All the figures
-├── old_gemini_2.0_flash/                # Old code, answers, and figures using Gemini 2.0 flash
-├── old_gpt-4o/                          # Old code, answers, and figures using GPT-4o
+├── old/                                 # Code and results for earlier attempts
+│   ├── gemini_2.0_flash/                # Old code, answers, and figures using Gemini 2.0 flash
+│   └── gpt-4o/                          # Old code, answers, and figures using GPT-4o
 ├── scripts/                             # All Python files to run the analysis
 │   ├── 1_Goodreads_scraper_SHELF.py     # Scrap shelf data from Goodreads
 │   ├── 2_Goodreads_scraper_LISTS.py     # Scrap lists data from Goodreads
